@@ -1,0 +1,263 @@
+---
+title: "Project1"
+author: "Breanna Schneider"
+date: "9/30/2021"
+output: html_document
+---
+
+```{r, include=FALSE}
+library(ggplot2)
+library(car)
+library(scatterplot3d)
+
+```
+
+
+```{r}
+BodyFat <- read.csv("BodyFat.csv")
+head(BodyFat)
+tail(BodyFat)
+
+summary(BodyFat)
+ new_weight<-round(BodyFat$WEIGHT*0.454, 2)
+ BodyFat$WEIGHT=new_weight
+new_height<- round(BodyFat$HEIGHT * 2.54, 2)
+BodyFat$HEIGHT = new_height
+
+BodyFat[BodyFat$BODYFAT == 0, ]
+fat_percent = (495/BodyFat$DENSITY[182]) - 450
+BodyFat <- BodyFat[-(182),]
+plot(y=BodyFat$BODYFAT, x=(BodyFat$WEIGHT), ylab = "Body Fat", xlab="Weight (kg)"); points(x=BodyFat$WEIGHT[39], y=BodyFat$BODYFAT[39], col="red", pch=19, cex=2)
+
+
+
+
+high_weight <- BodyFat[BodyFat$WEIGHT>160,]
+high_weight
+
+
+hist(BodyFat$BODYFAT, main="Body Fat Percentage Histogram")
+hist(BodyFat$WEIGHT, main="Histogram of Weights")
+
+ggplot(BodyFat)+
+  geom_point(aes(x=ADIPOSITY, y=BODYFAT))
+
+fat_bmi_lm <- lm(data=BodyFat, BODYFAT~ADIPOSITY)
+summary(fat_bmi_lm)
+
+ggplot(BodyFat) + 
+  geom_point(aes(x=WEIGHT, y=BODYFAT))
+ggplot(BodyFat) + 
+  geom_point(aes(x=DENSITY, y=BODYFAT))
+boxplot(BodyFat$WEIGHT)
+
+
+cor(BodyFat$DENSITY, BodyFat$BODYFAT)
+
+ 
+plot(density(BodyFat$HEIGHT), main="Height Density Plot", xlab="Height (in cms)")
+
+
+
+```
+
+```{r}
+
+
+layout(matrix(c(1,2,3,4), 2, 2, byrow = TRUE))
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$HEIGHT), ylab = "Body Fat", xlab= "Height (cm)")
+lmmodel = lm(BodyFat$BODYFAT ~ BodyFat$HEIGHT)
+abline(lmmodel,col="blue",lwd=5) 
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$ANKLE), ylab = "Body Fat", xlab="Ankle Circumference (cm)" )
+lmmodel2 = lm(BodyFat$BODYFAT ~ BodyFat$ANKLE)
+abline(lmmodel2,col="blue",lwd=5)
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$KNEE), ylab = "Body Fat", xlab= "Knee Circumference (cm)")
+lmmodel3 = lm(BodyFat$BODYFAT ~ BodyFat$KNEE)
+abline(lmmodel3,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$DENSITY), ylab = "Body Fat", xlab= "Density")
+lmmodel4 = lm(BodyFat$BODYFAT ~ BodyFat$DENSITY)
+abline(lmmodel4,col="blue",lwd=5)
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$AGE), ylab = "Body Fat", xlab= "Age")
+lmmodel5 = lm(BodyFat$BODYFAT ~ BodyFat$AGE)
+abline(lmmodel5,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$ADIPOSITY), ylab = "Body Fat", xlab= "Adiposity")
+lmmodel6 = lm(BodyFat$BODYFAT ~ BodyFat$ADIPOSITY)
+abline(lmmodel6,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$NECK), ylab = "Body Fat", xlab= "Neck Circumference (cm)" )
+lmmodel7 = lm(BodyFat$BODYFAT ~ BodyFat$NECK)
+abline(lmmodel7,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$CHEST), ylab = "Body Fat", xlab= "Chest Size (cm)")
+lmmodel8 = lm(BodyFat$BODYFAT ~ BodyFat$CHEST)
+abline(lmmodel8,col="blue",lwd=5)
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$ABDOMEN), ylab = "Body Fat", xlab= "Abdomen Size (cm)")
+lmmodel9 = lm(BodyFat$BODYFAT ~ BodyFat$ABDOMEN)
+abline(lmmodel9,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$HIP), ylab = "Body Fat", xlab= "Hip Size (cm)")
+lmmodel10 = lm(BodyFat$BODYFAT ~ BodyFat$HIP)
+abline(lmmodel10,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$THIGH), ylab = "Body Fat", xlab= "Thigh Circumference (cm)")
+lmmodel11 = lm(BodyFat$BODYFAT ~ BodyFat$THIGH)
+abline(lmmodel11,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$BICEPS), ylab = "Body Fat", xlab= "Bicep Circumference (cm)")
+lmmodel12 = lm(BodyFat$BODYFAT ~ BodyFat$BICEPS)
+abline(lmmodel12,col="blue",lwd=5)
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$FOREARM), ylab = "Body Fat", xlab="Forearm Circumference (cm)" )
+lmmodel13 = lm(BodyFat$BODYFAT ~ BodyFat$FOREARM)
+abline(lmmodel13,col="blue",lwd=5)
+
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$WEIGHT), ylab = "Body Fat", xlab="Weight (kg)" )
+lmmodel14 = lm(BodyFat$BODYFAT ~ BodyFat$WEIGHT)
+abline(lmmodel14,col="blue",lwd=5)
+
+plot(y=BodyFat$BODYFAT, x=(BodyFat$WRIST), ylab = "Body Fat", xlab="Wrist Circumference (cm)" )
+lmmodel15 = lm(BodyFat$BODYFAT ~ BodyFat$WRIST)
+abline(lmmodel15,col="blue",lwd=5)
+
+age_lm <- lm(data=BodyFat, BODYFAT~AGE)
+summary(age_lm)
+weight_lm <- lm(data=BodyFat, BODYFAT~WEIGHT)
+summary(weight_lm)
+height_lm <- lm(data=BodyFat, BODYFAT~HEIGHT)
+summary(height_lm)
+neck_lm <- lm(data=BodyFat, BODYFAT ~ NECK)
+summary(neck_lm)
+chest_lm <- lm(data=BodyFat, BODYFAT ~ CHEST)
+summary(chest_lm)
+abdomen_lm <- lm(data=BodyFat, BODYFAT ~ ABDOMEN)
+summary(abdomen_lm)
+hip_lm <- lm(data=BodyFat, BODYFAT ~ HIP)
+summary(hip_lm)
+thigh_lm <- lm(data=BodyFat, BODYFAT ~ THIGH)
+summary(thigh_lm)
+knee_lm <- lm(data=BodyFat, BODYFAT ~ KNEE)
+summary(knee_lm)
+ankle_lm <- lm(data=BodyFat, BODYFAT ~ ANKLE)
+summary(ankle_lm)
+biceps_lm <- lm(data=BodyFat, BODYFAT ~ BICEPS)
+summary(biceps_lm)
+forearm_lm <- lm(data=BodyFat, BODYFAT ~ FOREARM)
+summary(forearm_lm)
+wrist_lm <- lm(data=BodyFat, BODYFAT ~ WRIST)
+summary(wrist_lm)
+
+
+```
+
+
+```{r}
+
+
+test_lm <- lm(data=BodyFat, BODYFAT ~ ABDOMEN+WEIGHT+CHEST)
+summary(test_lm)
+lm_bb <- lm(data=BodyFat, BODYFAT ~ HIP+WEIGHT+ABDOMEN+CHEST)
+lm_dd <- lm(data=BodyFat, BODYFAT ~ ABDOMEN+CHEST)
+summary(lm_dd)
+
+lm_cc <- lm(data=BodyFat, BODYFAT ~ WEIGHT+ABDOMEN+CHEST)
+summary(lm_cc)
+summary(lm_bb)
+
+lm_abweight_woutlier <- lm(data=BodyFat, BODYFAT ~ WEIGHT+ABDOMEN)
+summary(lm_abweight_woutlier)
+
+resids = residuals(lm_abweight_woutlier);  yhats = predict(lm_abweight_woutlier)
+plot(yhats,resids,main="Residual Plot with Abdomen and Weight Predictors",
+     xlab="Predicted Y",ylab="Residuals",
+     pch=19,cex=1.5,cex.main=1.5,cex.lab=1.5)
+abline(h=0,col="gray",lwd=3,lty=2) 
+
+qqnorm(rstandard(lm_abweight_woutlier),main="Normal QQ Plot Abdomen and Weight Predictors",
+      pch=19,cex=1.5,cex.main=1.5,cex.lab=1.5);abline(a=0,b=1,lwd=2,col="gray")
+
+pii = hatvalues(lm_abweight_woutlier)
+cooki = cooks.distance(lm_abweight_woutlier)
+
+par(mfrow = c(2,1))
+n = dim(BodyFat)[1]
+plot(1:n,pii,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
+     xlab="Index (Each Observation)",ylab="Pii",main="Leverage Values (Pii)")
+plot(1:n,cooki,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
+     xlab="Index (Each Observation)",ylab="Cook's Distance",main="Influence Values (Cook's Distance)")
+
+
+
+```
+
+```{r}
+
+
+
+
+BodyFat<- BodyFat[-(39), ]
+
+
+lm_abweight <- lm(data=BodyFat, BODYFAT ~ WEIGHT+ABDOMEN)
+summary(lm_abweight)
+
+resids = residuals(lm_abweight);  yhats = predict(lm_abweight)
+plot(yhats,resids,main="Residual Plot with Abdomen and Weight Predictors",
+     xlab="Predicted Y",ylab="Residuals",
+     pch=19,cex=1.5,cex.main=1.5,cex.lab=1.5)
+abline(h=0,col="gray",lwd=3,lty=2) 
+
+qqnorm(rstandard(lm_abweight),main="Normal QQ Plot Abdomen and Weight Predictors",
+      pch=19,cex=1.5,cex.main=1.5,cex.lab=1.5);abline(a=0,b=1,lwd=2,col="gray")
+
+
+
+predict(lm_abweight, newdata=data.frame(WEIGHT=90, ABDOMEN=100), interval='predict')
+predict(lm_abweight, newdata=data.frame(WEIGHT=90, ABDOMEN=100), interval='predict', level=.95)
+
+pii2 = hatvalues(lm_abweight)
+cooki2 = cooks.distance(lm_abweight)
+
+par(mfrow = c(2,1))
+n2 = dim(BodyFat)[1]
+plot(1:n2,pii2,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5, xlab="Index (Each Observation)",ylab="Pii",main="Leverage Values (Pii)")
+plot(1:n2,cooki2,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5, xlab="Index (Each Observation)",ylab="Cook's Distance",main="Influence Values (Cook's Distance)")
+
+
+
+
+influence.measures(lm_abweight)
+vif(lm_abweight)
+
+
+```
+
+```{r}
+
+s3d = scatterplot3d(BodyFat$WEIGHT,BodyFat$ABDOMEN,BodyFat$BODYFAT, pch=19, main="3D Plot of Weight(x), Abdomen (Y) and Body Fat (Z)", xlab= "Weight (kg)", ylab = "Abdomen (cm)",zlab = "Body Fat (%)") 
+fit <- lm(data=BodyFat, BODYFAT ~ WEIGHT+ ABDOMEN) ; s3d$plane3d(fit)
+
+
+
+
+
+
+```
+
+
+
